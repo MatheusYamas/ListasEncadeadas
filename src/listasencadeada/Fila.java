@@ -59,6 +59,7 @@ public class Fila {
         }
         System.out.println("Fila com Lista Encadeada:");
         System.out.println("Fila com Lista Encadeada:");
+        System.out.println("Fila com Lista Encadeada:");
         fila.imprime();
         fila.remove();
         fila.imprime();
