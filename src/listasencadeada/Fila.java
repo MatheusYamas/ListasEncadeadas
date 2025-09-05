@@ -7,7 +7,7 @@ public class Fila {
     public Fila(){
         this.Fila = null;
     }
-// Rever o insere
+
     public void insere (int informacao){
         Node no = new Node();
         no.setInformacao(informacao);
@@ -57,8 +57,6 @@ public class Fila {
             }
             fila.insere(item);
         }
-        System.out.println("Fila com Lista Encadeada:");
-        System.out.println("Fila com Lista Encadeada:");
         System.out.println("Fila com Lista Encadeada:");
         fila.imprime();
         fila.remove();

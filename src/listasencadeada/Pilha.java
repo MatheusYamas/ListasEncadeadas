@@ -11,14 +11,12 @@ public class Pilha {
     public void insere(int informacao){
         Node no = new Node();
         no.setInformacao(informacao);
-
         if(vazia()){
             Pilha=no;
         }
         else{
             no.setProximo(Pilha);
             Pilha = no;
-
             System.out.println("Nó atual no endereço" + no);
         }
     }
