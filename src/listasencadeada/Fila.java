@@ -49,17 +49,24 @@ public class Fila {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Fila fila = new Fila();
-        int [] itens = {1, 5, 3,9, 0};
         System.out.println("Digite os itens da lista (digite '0' para parar):");
-        for (int item : itens){
-            if (item == 0){
+        int item;
+        while (true) {
+            item = scanner.nextInt();
+            if (item == 0) {
                 break;
             }
             fila.insere(item);
         }
-        System.out.println("Fila com Lista Encadeada:");
+        System.out.println("Fila com lista Encadeada:");
         fila.imprime();
-        fila.remove();
+        System.out.println("Se caso queira remover, digite 1:");
+        int digito = scanner.nextInt();
+        while (digito == 1){
+            System.out.println("Se caso queira remover, digite 1:");
+            digito = scanner.nextInt();
+            fila.remove();
+        }
         fila.imprime();
     }
 }
