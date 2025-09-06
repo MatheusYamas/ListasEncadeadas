@@ -1,103 +1,57 @@
 package listasencadeada;
 
+import java.util.Scanner;
+
 public class Merge {
-    private Node merge;
+    public static FilaEncadeada mergeFilas(FilaEncadeada filaA, FilaEncadeada filaB) {
+        FilaEncadeada filaC = new FilaEncadeada();
 
-    public Merge() {
-        this.merge = null;
-    }
-    public Node getMerge() {
-        return this.merge;
-    }
-
-    public void mergeLista(Node merge1, Node merge2) {
-        if (merge1 == null) {
-            this.merge = merge2;
-            return;
-        }
-        if (merge2 == null) {
-            this.merge = merge1;
-            return;
-        }
-
-        Node mergeFinal;
-        if (merge1.getInformacao() <= merge2.getInformacao()) {
-            mergeFinal = merge1;
-            merge1 = merge1.getProximo();
-        } else {
-            mergeFinal = merge2;
-            merge2 = merge2.getProximo();
-        }
-
-        Node listaFinal = mergeFinal;
-        while (merge1 != null && merge2 != null) {
-            if (merge1.getInformacao() <= merge2.getInformacao()) {
-                listaFinal.setProximo(merge1);
-                merge1 = merge1.getProximo();
+        while (!filaA.vazia() && !filaB.vazia()) {
+            int elementoA = filaA.frente();
+            int elementoB = filaB.frente();
+            if (elementoA <= elementoB) {
+                filaC.insere(filaA.remove());
             } else {
-                listaFinal.setProximo(merge2);
-                merge2 = merge2.getProximo();
+                filaC.insere(filaB.remove());
             }
-            listaFinal = listaFinal.getProximo();
         }
-
-        if (merge1 != null) {
-            listaFinal.setProximo(merge1);
-        } else if (merge2 != null) {
-            listaFinal.setProximo(merge2);
+        while (!filaA.vazia()) {
+            filaC.insere(filaA.remove());
         }
-        this.merge = mergeFinal;
-    }
-    public void insere(int informacao) {
-        Node no = new Node();
-        no.setInformacao(informacao);
-        if (vazia()) {
-            this.merge = no;
-        } else {
-            Node atual = this.merge;
-            while (atual.getProximo() != null) {
-                atual = atual.getProximo();
-            }
-            atual.setProximo(no);
+        while (!filaB.vazia()) {
+            filaC.insere(filaB.remove());
         }
-    }
-
-    public void imprime() {
-        Node atual = this.merge;
-        while (atual != null) {
-            System.out.print(atual.getInformacao() + " -> ");
-            atual = atual.getProximo();
-        }
-        System.out.println("Null");
-    }
-
-    public boolean vazia() {
-        return this.merge == null;
+        return filaC;
     }
 
     public static void main(String[] args) {
-        Merge lista = new Merge();
-        Merge lista1 = new Merge();
-        Merge lista2 = new Merge();
-
-        int[] itens = {3, 5, 7, 9};
-        for (int item : itens) {
-            lista1.insere(item);
+        Scanner scanner = new Scanner(System.in);
+        FilaEncadeada filaA = new FilaEncadeada();
+        System.out.println("Digite os itens da lista A(digite '0' para parar):");
+        int itemA;
+        while (true) {
+            itemA = scanner.nextInt();
+            if (itemA == 0) {
+                break;
+            }
+            filaA.insere(itemA);
         }
+        filaA.imprime();
 
-        int[] itens2 = {2, 8, 9, 12};
-        for (int item : itens2) {
-            lista2.insere(item);
+        System.out.println("Digite os itens da lista B(digite '0' para parar):");
+        FilaEncadeada filaB = new FilaEncadeada();
+        int itemB;
+        while (true) {
+            itemB = scanner.nextInt();
+            if (itemB == 0) {
+                break;
+            }
+            filaB.insere(itemB);
         }
+        filaB.imprime();
+        FilaEncadeada filaC = mergeFilas(filaA, filaB);
 
-        System.out.print("Lista 1: ");
-        lista1.imprime();
-        System.out.print("Lista 2: ");
-        lista2.imprime();
-
-        lista.mergeLista(lista1.getMerge(), lista2.getMerge());
-
-        System.out.println("Lista Final:");
-        lista.imprime();
+        System.out.println("Fila Final:");
+        filaC.imprime();
     }
 }
